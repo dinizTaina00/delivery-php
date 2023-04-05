@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Tempo de geração: 22-Mar-2022 às 18:58
--- Versão do servidor: 10.4.18-MariaDB
--- versão do PHP: 8.0.5
+-- Host: 127.0.0.1:3306
+-- Tempo de geração: 05-Abr-2023 às 14:43
+-- Versão do servidor: 8.0.31
+-- versão do PHP: 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,17 +27,19 @@ SET time_zone = "+00:00";
 -- Estrutura da tabela `tb_admin.dados_pagamento`
 --
 
-CREATE TABLE `tb_admin.dados_pagamento` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tb_admin.dados_pagamento`;
+CREATE TABLE IF NOT EXISTS `tb_admin.dados_pagamento` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `metodo_pagamento` varchar(50) NOT NULL,
   `beneficiario` varchar(255) NOT NULL,
   `cpf_beneficiario` varchar(15) NOT NULL,
   `banco` varchar(100) NOT NULL,
-  `conta` int(11) NOT NULL,
-  `agencia` int(11) NOT NULL,
+  `conta` int NOT NULL,
+  `agencia` int NOT NULL,
   `tipo_conta` varchar(20) NOT NULL,
-  `chave_pix` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `chave_pix` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -45,12 +47,14 @@ CREATE TABLE `tb_admin.dados_pagamento` (
 -- Estrutura da tabela `tb_admin.despesas`
 --
 
-CREATE TABLE `tb_admin.despesas` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tb_admin.despesas`;
+CREATE TABLE IF NOT EXISTS `tb_admin.despesas` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `mes` varchar(15) NOT NULL,
-  `ano` int(11) NOT NULL,
-  `total_despesa` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `ano` int NOT NULL,
+  `total_despesa` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -58,16 +62,18 @@ CREATE TABLE `tb_admin.despesas` (
 -- Estrutura da tabela `tb_admin.faturamento`
 --
 
-CREATE TABLE `tb_admin.faturamento` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tb_admin.faturamento`;
+CREATE TABLE IF NOT EXISTS `tb_admin.faturamento` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `mes` varchar(11) NOT NULL,
-  `ano` int(11) NOT NULL,
+  `ano` int NOT NULL,
   `valor_faturado` double NOT NULL,
   `total_dinheiro` double NOT NULL,
   `total_debito` double NOT NULL,
   `total_credito` double NOT NULL,
-  `despesas` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `despesas` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `tb_admin.faturamento`
@@ -82,12 +88,14 @@ INSERT INTO `tb_admin.faturamento` (`id`, `mes`, `ano`, `valor_faturado`, `total
 -- Estrutura da tabela `tb_admin.itens_despesa_isoladas`
 --
 
-CREATE TABLE `tb_admin.itens_despesa_isoladas` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tb_admin.itens_despesa_isoladas`;
+CREATE TABLE IF NOT EXISTS `tb_admin.itens_despesa_isoladas` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `item_despesa` varchar(100) NOT NULL,
   `valor` double NOT NULL,
-  `data` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `data` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `tb_admin.itens_despesa_isoladas`
@@ -102,11 +110,13 @@ INSERT INTO `tb_admin.itens_despesa_isoladas` (`id`, `item_despesa`, `valor`, `d
 -- Estrutura da tabela `tb_admin.itens_despesa_mensal`
 --
 
-CREATE TABLE `tb_admin.itens_despesa_mensal` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tb_admin.itens_despesa_mensal`;
+CREATE TABLE IF NOT EXISTS `tb_admin.itens_despesa_mensal` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `item_despesa` varchar(100) NOT NULL,
-  `valor` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `valor` double NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `tb_admin.itens_despesa_mensal`
@@ -123,12 +133,14 @@ INSERT INTO `tb_admin.itens_despesa_mensal` (`id`, `item_despesa`, `valor`) VALU
 -- Estrutura da tabela `tb_admin.itens_relatorio_despesas`
 --
 
-CREATE TABLE `tb_admin.itens_relatorio_despesas` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tb_admin.itens_relatorio_despesas`;
+CREATE TABLE IF NOT EXISTS `tb_admin.itens_relatorio_despesas` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `mes` varchar(15) NOT NULL,
   `ano` varchar(10) NOT NULL,
-  `valor` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `valor` double NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -136,8 +148,9 @@ CREATE TABLE `tb_admin.itens_relatorio_despesas` (
 -- Estrutura da tabela `tb_admin.metodos_pagamento`
 --
 
-CREATE TABLE `tb_admin.metodos_pagamento` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tb_admin.metodos_pagamento`;
+CREATE TABLE IF NOT EXISTS `tb_admin.metodos_pagamento` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `metodo_pagamento` varchar(50) NOT NULL,
   `beneficiario` varchar(150) NOT NULL,
   `cpf_beneficiario` varchar(15) NOT NULL,
@@ -146,8 +159,9 @@ CREATE TABLE `tb_admin.metodos_pagamento` (
   `agencia` varchar(20) NOT NULL,
   `tipo_conta` varchar(25) NOT NULL,
   `chave_pix` varchar(255) NOT NULL,
-  `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `status` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `tb_admin.metodos_pagamento`
@@ -165,12 +179,14 @@ INSERT INTO `tb_admin.metodos_pagamento` (`id`, `metodo_pagamento`, `beneficiari
 -- Estrutura da tabela `tb_admin.online`
 --
 
-CREATE TABLE `tb_admin.online` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tb_admin.online`;
+CREATE TABLE IF NOT EXISTS `tb_admin.online` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `ip` varchar(255) NOT NULL,
   `ultima_acao` datetime NOT NULL,
-  `token` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `token` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `tb_admin.online`
@@ -186,12 +202,14 @@ INSERT INTO `tb_admin.online` (`id`, `ip`, `ultima_acao`, `token`) VALUES
 -- Estrutura da tabela `tb_admin.relatorio_despesas`
 --
 
-CREATE TABLE `tb_admin.relatorio_despesas` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tb_admin.relatorio_despesas`;
+CREATE TABLE IF NOT EXISTS `tb_admin.relatorio_despesas` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `mes` varchar(15) NOT NULL,
   `ano` varchar(10) NOT NULL,
-  `valor_total` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `valor_total` double NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `tb_admin.relatorio_despesas`
@@ -206,29 +224,31 @@ INSERT INTO `tb_admin.relatorio_despesas` (`id`, `mes`, `ano`, `valor_total`) VA
 -- Estrutura da tabela `tb_admin.usuarios`
 --
 
-CREATE TABLE `tb_admin.usuarios` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tb_admin.usuarios`;
+CREATE TABLE IF NOT EXISTS `tb_admin.usuarios` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `user` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `nome` varchar(255) NOT NULL,
-  `permissao` int(1) NOT NULL,
+  `permissao` int NOT NULL,
   `contato` varchar(20) NOT NULL,
   `rua` varchar(100) NOT NULL,
   `numero` varchar(10) NOT NULL,
   `bairro` varchar(100) NOT NULL,
-  `complemento` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `complemento` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `tb_admin.usuarios`
 --
 
 INSERT INTO `tb_admin.usuarios` (`id`, `user`, `password`, `nome`, `permissao`, `contato`, `rua`, `numero`, `bairro`, `complemento`) VALUES
-(5, 'admin', 'admin', 'Tainã Machado', 1, '55997330222', '', '', '', ''),
-(18, 'taina', '123', 'Tainã Machado', 0, '55997330222', 'Rua ', '358', 'Gaúcha', 'casa'),
-(20, 'Wagner', '1234', 'Wagner', 0, '17982066223', '', '', '', ''),
-(21, 'Carine', 'manu', 'Carine Lima', 0, '5599911937', '', '', '', ''),
-(23, 'johnwick', '12345', 'John Wick', 0, '55999058923', 'Ernani', '358', 'Gaúcha', '');
+(5, 'admin', 'admin', 'Tainã Machado', 1, '', '', '', '', ''),
+(18, 'taina', '123', 'Tainã Machado', 0, '', 'Rua ', '358', 'Gaúcha', 'casa'),
+(20, 'Wagner', '1234', 'Wagner', 0, '', '', '', '', ''),
+(21, 'Carine', 'manu', 'Carine Lima', 0, '', '', '', '', ''),
+(23, 'johnwick', '12345', 'John Wick', 0, '', 'Ernani', '358', 'Gaúcha', '');
 
 -- --------------------------------------------------------
 
@@ -236,11 +256,13 @@ INSERT INTO `tb_admin.usuarios` (`id`, `user`, `password`, `nome`, `permissao`, 
 -- Estrutura da tabela `tb_admin.visitas`
 --
 
-CREATE TABLE `tb_admin.visitas` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tb_admin.visitas`;
+CREATE TABLE IF NOT EXISTS `tb_admin.visitas` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `ip` varchar(255) NOT NULL,
-  `dia` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `dia` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `tb_admin.visitas`
@@ -263,10 +285,12 @@ INSERT INTO `tb_admin.visitas` (`id`, `ip`, `dia`) VALUES
 -- Estrutura da tabela `tb_site.categorias`
 --
 
-CREATE TABLE `tb_site.categorias` (
-  `id` int(11) NOT NULL,
-  `nome` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+DROP TABLE IF EXISTS `tb_site.categorias`;
+CREATE TABLE IF NOT EXISTS `tb_site.categorias` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `tb_site.categorias`
@@ -284,13 +308,15 @@ INSERT INTO `tb_site.categorias` (`id`, `nome`) VALUES
 -- Estrutura da tabela `tb_site.compras_estoque`
 --
 
-CREATE TABLE `tb_site.compras_estoque` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tb_site.compras_estoque`;
+CREATE TABLE IF NOT EXISTS `tb_site.compras_estoque` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `data` date NOT NULL,
   `valor` double NOT NULL,
-  `produto` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `quantidade` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `produto` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `quantidade` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Extraindo dados da tabela `tb_site.compras_estoque`
@@ -306,11 +332,13 @@ INSERT INTO `tb_site.compras_estoque` (`id`, `data`, `valor`, `produto`, `quanti
 -- Estrutura da tabela `tb_site.dias_funcionamento`
 --
 
-CREATE TABLE `tb_site.dias_funcionamento` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tb_site.dias_funcionamento`;
+CREATE TABLE IF NOT EXISTS `tb_site.dias_funcionamento` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `dia_semana` varchar(20) NOT NULL,
-  `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `status` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -318,12 +346,14 @@ CREATE TABLE `tb_site.dias_funcionamento` (
 -- Estrutura da tabela `tb_site.estoque`
 --
 
-CREATE TABLE `tb_site.estoque` (
-  `id` int(11) NOT NULL,
-  `nome` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `quantidade_atual` int(11) NOT NULL,
-  `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+DROP TABLE IF EXISTS `tb_site.estoque`;
+CREATE TABLE IF NOT EXISTS `tb_site.estoque` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `quantidade_atual` int NOT NULL,
+  `status` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -331,11 +361,13 @@ CREATE TABLE `tb_site.estoque` (
 -- Estrutura da tabela `tb_site.imagens_site`
 --
 
-CREATE TABLE `tb_site.imagens_site` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tb_site.imagens_site`;
+CREATE TABLE IF NOT EXISTS `tb_site.imagens_site` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `imagem_logo` varchar(255) DEFAULT NULL,
-  `imagem_banner` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `imagem_banner` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `tb_site.imagens_site`
@@ -350,13 +382,14 @@ INSERT INTO `tb_site.imagens_site` (`id`, `imagem_logo`, `imagem_banner`) VALUES
 -- Estrutura da tabela `tb_site.informacoes_site`
 --
 
-CREATE TABLE `tb_site.informacoes_site` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tb_site.informacoes_site`;
+CREATE TABLE IF NOT EXISTS `tb_site.informacoes_site` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `nome_negocio` varchar(255) DEFAULT NULL,
   `cnpj` varchar(25) DEFAULT NULL,
-  `retirar_local` text DEFAULT NULL,
-  `rua` text DEFAULT NULL,
-  `numero` int(11) DEFAULT NULL,
+  `retirar_local` text,
+  `rua` text,
+  `numero` int DEFAULT NULL,
   `bairro` varchar(100) DEFAULT NULL,
   `cidade` varchar(100) DEFAULT NULL,
   `cep` varchar(11) DEFAULT NULL,
@@ -369,8 +402,9 @@ CREATE TABLE `tb_site.informacoes_site` (
   `facebook` varchar(50) NOT NULL,
   `frase_efeito` varchar(255) NOT NULL,
   `contato` varchar(14) NOT NULL,
-  `disponivel` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `disponivel` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `tb_site.informacoes_site`
@@ -385,10 +419,12 @@ INSERT INTO `tb_site.informacoes_site` (`id`, `nome_negocio`, `cnpj`, `retirar_l
 -- Estrutura da tabela `tb_site.numeros_contato`
 --
 
-CREATE TABLE `tb_site.numeros_contato` (
-  `id` int(11) NOT NULL,
-  `contato` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+DROP TABLE IF EXISTS `tb_site.numeros_contato`;
+CREATE TABLE IF NOT EXISTS `tb_site.numeros_contato` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `contato` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -396,11 +432,13 @@ CREATE TABLE `tb_site.numeros_contato` (
 -- Estrutura da tabela `tb_site.pagamentos`
 --
 
-CREATE TABLE `tb_site.pagamentos` (
-  `id` int(11) NOT NULL,
-  `id_pedido` int(11) NOT NULL,
-  `comprovante` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+DROP TABLE IF EXISTS `tb_site.pagamentos`;
+CREATE TABLE IF NOT EXISTS `tb_site.pagamentos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_pedido` int NOT NULL,
+  `comprovante` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -408,11 +446,12 @@ CREATE TABLE `tb_site.pagamentos` (
 -- Estrutura da tabela `tb_site.pedidos`
 --
 
-CREATE TABLE `tb_site.pedidos` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tb_site.pedidos`;
+CREATE TABLE IF NOT EXISTS `tb_site.pedidos` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `data` date NOT NULL,
   `hora` time NOT NULL,
-  `id_user` int(11) NOT NULL,
+  `id_user` int NOT NULL,
   `nome_cliente` varchar(100) NOT NULL,
   `entrega` varchar(20) NOT NULL,
   `valor_entrega` double NOT NULL,
@@ -425,8 +464,9 @@ CREATE TABLE `tb_site.pedidos` (
   `troco` double NOT NULL,
   `status` varchar(50) NOT NULL,
   `comprovante` varchar(255) NOT NULL,
-  `tempo_estimado` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `tempo_estimado` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `tb_site.pedidos`
@@ -451,17 +491,19 @@ INSERT INTO `tb_site.pedidos` (`id`, `data`, `hora`, `id_user`, `nome_cliente`, 
 -- Estrutura da tabela `tb_site.produtos`
 --
 
-CREATE TABLE `tb_site.produtos` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tb_site.produtos`;
+CREATE TABLE IF NOT EXISTS `tb_site.produtos` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) NOT NULL,
   `preco` double NOT NULL,
   `ingredientes` varchar(255) NOT NULL,
   `categoria` varchar(50) NOT NULL,
   `img` varchar(255) NOT NULL,
-  `tempo` int(11) NOT NULL,
-  `status` int(11) NOT NULL,
-  `disponivel` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `tempo` int NOT NULL,
+  `status` int NOT NULL,
+  `disponivel` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `tb_site.produtos`
@@ -477,12 +519,14 @@ INSERT INTO `tb_site.produtos` (`id`, `nome`, `preco`, `ingredientes`, `categori
 -- Estrutura da tabela `tb_site.produtos_estoque`
 --
 
-CREATE TABLE `tb_site.produtos_estoque` (
-  `id` int(11) NOT NULL,
-  `nome` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `quantidade` int(11) NOT NULL,
-  `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+DROP TABLE IF EXISTS `tb_site.produtos_estoque`;
+CREATE TABLE IF NOT EXISTS `tb_site.produtos_estoque` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `quantidade` int NOT NULL,
+  `status` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Extraindo dados da tabela `tb_site.produtos_estoque`
@@ -503,16 +547,18 @@ INSERT INTO `tb_site.produtos_estoque` (`id`, `nome`, `quantidade`, `status`) VA
 -- Estrutura da tabela `tb_site.produtos_pedido`
 --
 
-CREATE TABLE `tb_site.produtos_pedido` (
-  `id` int(11) NOT NULL,
-  `id_pedido` int(11) NOT NULL,
-  `id_produto` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tb_site.produtos_pedido`;
+CREATE TABLE IF NOT EXISTS `tb_site.produtos_pedido` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_pedido` int NOT NULL,
+  `id_produto` int NOT NULL,
   `produto_nome` varchar(50) NOT NULL,
   `produto_categoria` varchar(50) NOT NULL,
   `produto_preco` double NOT NULL,
   `ingredientes` varchar(255) NOT NULL,
-  `quantidade` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `quantidade` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `tb_site.produtos_pedido`
@@ -531,290 +577,6 @@ INSERT INTO `tb_site.produtos_pedido` (`id`, `id_pedido`, `id_produto`, `produto
 (70, 65, 18, 'Hamburguer Monstro', 'Hamburguer', 17, 'Pão Tomate Ervilha Alface ', 1),
 (71, 66, 18, 'Hamburguer Monstro', 'Hamburguer', 17, 'Pão Tomate Ervilha Alface ', 1),
 (72, 67, 18, 'Hamburguer Monstro', 'Hamburguer', 17, 'Pão Tomate Ervilha Alface ', 3);
-
---
--- Índices para tabelas despejadas
---
-
---
--- Índices para tabela `tb_admin.dados_pagamento`
---
-ALTER TABLE `tb_admin.dados_pagamento`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices para tabela `tb_admin.despesas`
---
-ALTER TABLE `tb_admin.despesas`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices para tabela `tb_admin.faturamento`
---
-ALTER TABLE `tb_admin.faturamento`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices para tabela `tb_admin.itens_despesa_isoladas`
---
-ALTER TABLE `tb_admin.itens_despesa_isoladas`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices para tabela `tb_admin.itens_despesa_mensal`
---
-ALTER TABLE `tb_admin.itens_despesa_mensal`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices para tabela `tb_admin.itens_relatorio_despesas`
---
-ALTER TABLE `tb_admin.itens_relatorio_despesas`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices para tabela `tb_admin.metodos_pagamento`
---
-ALTER TABLE `tb_admin.metodos_pagamento`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices para tabela `tb_admin.online`
---
-ALTER TABLE `tb_admin.online`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices para tabela `tb_admin.relatorio_despesas`
---
-ALTER TABLE `tb_admin.relatorio_despesas`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices para tabela `tb_admin.usuarios`
---
-ALTER TABLE `tb_admin.usuarios`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices para tabela `tb_admin.visitas`
---
-ALTER TABLE `tb_admin.visitas`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices para tabela `tb_site.categorias`
---
-ALTER TABLE `tb_site.categorias`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices para tabela `tb_site.compras_estoque`
---
-ALTER TABLE `tb_site.compras_estoque`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices para tabela `tb_site.dias_funcionamento`
---
-ALTER TABLE `tb_site.dias_funcionamento`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices para tabela `tb_site.estoque`
---
-ALTER TABLE `tb_site.estoque`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices para tabela `tb_site.imagens_site`
---
-ALTER TABLE `tb_site.imagens_site`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices para tabela `tb_site.informacoes_site`
---
-ALTER TABLE `tb_site.informacoes_site`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices para tabela `tb_site.numeros_contato`
---
-ALTER TABLE `tb_site.numeros_contato`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices para tabela `tb_site.pagamentos`
---
-ALTER TABLE `tb_site.pagamentos`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices para tabela `tb_site.pedidos`
---
-ALTER TABLE `tb_site.pedidos`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices para tabela `tb_site.produtos`
---
-ALTER TABLE `tb_site.produtos`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices para tabela `tb_site.produtos_estoque`
---
-ALTER TABLE `tb_site.produtos_estoque`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices para tabela `tb_site.produtos_pedido`
---
-ALTER TABLE `tb_site.produtos_pedido`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT de tabelas despejadas
---
-
---
--- AUTO_INCREMENT de tabela `tb_admin.dados_pagamento`
---
-ALTER TABLE `tb_admin.dados_pagamento`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT de tabela `tb_admin.despesas`
---
-ALTER TABLE `tb_admin.despesas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de tabela `tb_admin.faturamento`
---
-ALTER TABLE `tb_admin.faturamento`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
-
---
--- AUTO_INCREMENT de tabela `tb_admin.itens_despesa_isoladas`
---
-ALTER TABLE `tb_admin.itens_despesa_isoladas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de tabela `tb_admin.itens_despesa_mensal`
---
-ALTER TABLE `tb_admin.itens_despesa_mensal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT de tabela `tb_admin.itens_relatorio_despesas`
---
-ALTER TABLE `tb_admin.itens_relatorio_despesas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de tabela `tb_admin.metodos_pagamento`
---
-ALTER TABLE `tb_admin.metodos_pagamento`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT de tabela `tb_admin.online`
---
-ALTER TABLE `tb_admin.online`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT de tabela `tb_admin.relatorio_despesas`
---
-ALTER TABLE `tb_admin.relatorio_despesas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT de tabela `tb_admin.usuarios`
---
-ALTER TABLE `tb_admin.usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
-
---
--- AUTO_INCREMENT de tabela `tb_admin.visitas`
---
-ALTER TABLE `tb_admin.visitas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT de tabela `tb_site.categorias`
---
-ALTER TABLE `tb_site.categorias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
---
--- AUTO_INCREMENT de tabela `tb_site.compras_estoque`
---
-ALTER TABLE `tb_site.compras_estoque`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT de tabela `tb_site.dias_funcionamento`
---
-ALTER TABLE `tb_site.dias_funcionamento`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de tabela `tb_site.estoque`
---
-ALTER TABLE `tb_site.estoque`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de tabela `tb_site.imagens_site`
---
-ALTER TABLE `tb_site.imagens_site`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT de tabela `tb_site.informacoes_site`
---
-ALTER TABLE `tb_site.informacoes_site`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT de tabela `tb_site.numeros_contato`
---
-ALTER TABLE `tb_site.numeros_contato`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT de tabela `tb_site.pagamentos`
---
-ALTER TABLE `tb_site.pagamentos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de tabela `tb_site.pedidos`
---
-ALTER TABLE `tb_site.pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
-
---
--- AUTO_INCREMENT de tabela `tb_site.produtos`
---
-ALTER TABLE `tb_site.produtos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
-
---
--- AUTO_INCREMENT de tabela `tb_site.produtos_estoque`
---
-ALTER TABLE `tb_site.produtos_estoque`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT de tabela `tb_site.produtos_pedido`
---
-ALTER TABLE `tb_site.produtos_pedido`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
